@@ -92,11 +92,11 @@ firms::firms(int n, double money, string model_name)
 	fn.str("");
 }
 
-void firms::buy_raw(double price)
+void firms::buy_raw(map<int, offer> &demand)
 {
 	for (map<int, firm>::iterator i = _firms.begin(); i != _firms.end(); ++i)
 	{
-			(i->second).buy_raw(price);			
+			(i->second).buy_raw(demand);			
 	}
 }
 

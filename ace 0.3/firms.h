@@ -23,7 +23,7 @@ public:
 	firms(void);
 	firms(int n, double money, string model_name);
 	// Рынок сырья.
-	void buy_raw(double price);
+	void buy_raw(map<int, offer> &demand);
 	// Рынок труда.
 	map<int, double> set_vacancies();
 	vector<int> fire();

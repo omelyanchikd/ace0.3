@@ -92,11 +92,42 @@ firm::firm(double money)
 	prev_workers = 0;//20;
 }
 
-void firm::buy_raw(double price)
+void firm::buy_raw(map<int, offer> &demand)
+{ 
+	double available = _raw_need, spent = 0;
+	while ((spent < _raw_need) && (demand.size() > 0))
+    {
+        map<int,offer>::iterator j = demand.begin();
+		int rand = get_random(demand);
+		for (int i = 0; i < rand; i++)
+		{
+			j++;
+		}
+        buy(j->second, available, spent);
+		if ((j->second).get_count() == 0)
+		{
+			demand.erase(j);
+		}
+    }
+
+	_money -= spent; 
+}
+
+void firm::buy(offer& good, double& available, double& spent)
 {
-	_raw_price = price;
-	_money -= _raw_price * price * _productivity *_raw_need * _desired_workers;
-	_raw = _productivity *_raw_need * _desired_workers;
+	if (good.get_count() * good.get_price() >= available)
+	{
+		spent += available/good.get_price() * available;
+		good.set_count(good.get_count() - available/good.get_price());//*/
+	/*	spent += floor(available/good.get_price()) * available;
+		good.set_count(good.get_count() - floor(available/good.get_price()));	//*/	
+	}
+	else
+	{
+		spent += good.get_count() * good.get_price();
+		available -= good.get_count() * good.get_price();
+		good.set_count(0);
+	}
 }
 
 vector<int> firm::checkresumes(vector<int> resumes)

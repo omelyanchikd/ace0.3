@@ -28,7 +28,8 @@ public:
 	firm(void);
 	firm (double money);
 	// Закупка сырья
-	void buy_raw(double price);
+	void buy(offer& good, double& available, double& spent);
+	void buy_raw(map<int, offer> &demand);
 	//-----Labor-market-----//
 	vector<int> checkresumes(vector<int> resumes);         //Check income resumes and select appropriate candidates   
 	void hire(int id);                 //Hire final candidates 
