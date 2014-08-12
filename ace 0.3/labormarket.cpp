@@ -6,12 +6,26 @@ labormarket::labormarket(void)
 
 }
 
-void labormarket::set_vacancies(map<int, double> vacancies)
+void labormarket::set(vector<int> group_sizes)
 {
-	_vacancies = vacancies;
+	_group_sizes.clear();
+	for (int i = 0; i < group_sizes.size(); i++)
+	{
+		_group_sizes.push_back(group_sizes[i]);
+	}
+	_current_group = 0;
 }
 
-map<int, double> labormarket::get_vacancies()
+void labormarket::set_vacancies(map<int, double> vacancies)
+{
+	for (map<int, double>::iterator i = vacancies.begin(); i != vacancies.end(); ++i)
+	{
+		_vacancies[i->first + _current_group * _group_sizes.size()] = i->second;
+	}
+	_current_group++;
+}
+
+map<int, double> labormarket::get_vacancies(int group)
 {
 	return _vacancies;
 }
