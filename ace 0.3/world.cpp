@@ -12,10 +12,6 @@ world::world(int firmnumber, int householdnumber, double firmmoney, double house
 	_households = (households(householdnumber, householdmoney, model_name));
 	_rawmarket.clear();
 	_goodmarket.clear();
-	vector<int> groups;
-	groups.push_back(firmnumber);
-	groups.push_back(2);
-	_labormarket.set(groups);
 	_labormarket.clear();
 	_scenario = choice;
 	_model = model_name;
