@@ -8,7 +8,10 @@ labormarket::labormarket(void)
 
 void labormarket::set_vacancies(map<int, double> vacancies)
 {
-	_vacancies = vacancies;
+	for (map<int, double>::iterator i = vacancies.begin(); i != vacancies.end(); ++i)
+	{
+		_vacancies[i->first] = i->second;
+	}
 }
 
 map<int, double> labormarket::get_vacancies()

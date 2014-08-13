@@ -5,9 +5,9 @@ firms::firms(void)
 {
 }
 
-firms::firms(int n, double money, string model_name)
+firms::firms(int n, double money, string model_name, int start)
 {
-	for (int i = 0; i < n; i++)
+	for (int i = start; i < n + start; i++)
 	{
 		_firms[i+1] = (firm(money));
 	}

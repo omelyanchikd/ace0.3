@@ -21,7 +21,7 @@ class firms
 public:
 	// Конструкторы.
 	firms(void);
-	firms(int n, double money, string model_name);
+	firms(int n, double money, string model_name, int start);
 	// Рынок сырья.
 	void buy_raw(map<int, offer> &demand);
 	// Рынок труда.
