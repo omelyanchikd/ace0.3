@@ -46,6 +46,7 @@ public:
 	void write_log(string model_name);
 	// Очистка.
 	void clear();
+	vector<int> get_firm_ids();
 	// Статистика.
 	double production();
 	double consumption();

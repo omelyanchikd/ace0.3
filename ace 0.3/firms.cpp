@@ -140,9 +140,15 @@ map<int, vector<int>> firms::check_resumes(map<int, vector<int>> resumes)
 
 void firms::hire(map<int, vector<int>> employers)
 {
-	for (map<int, vector<int>>::iterator i = employers.begin(); i != employers.end(); ++i)
+	vector<int> ids;
+	ids.clear();
+	ids = this->get_firm_ids();
+	for (int i = 0; i < ids.size(); i++)
 	{
-		_firms[i->first].hire(i->second);
+		if (employers.find(i) != employers.end())
+		{
+			_firms[ids[i]].hire(employers[ids[i]]);
+		}
 	}
 }
 
@@ -366,4 +372,15 @@ void firms::set_info()
 	{
 		(i->second).set_info(x[0], -x[1], _f);
 	}
+}
+
+vector<int> firms::get_firm_ids()
+{
+	vector<int> ids;
+	ids.clear();
+	for (map<int, firm>::iterator i = _firms.begin(); i != _firms.end(); ++i)
+	{
+		ids.push_back(i->first);
+	}
+	return ids;
 }
