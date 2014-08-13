@@ -91,7 +91,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="unconscious.h" />
-    <ClInclude Include="vacancy.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>
@@ -111,7 +110,6 @@
     <ClCompile Include="scenario.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="unconscious.cpp" />
-    <ClCompile Include="vacancy.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

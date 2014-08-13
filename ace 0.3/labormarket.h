@@ -9,12 +9,9 @@ class labormarket
 {
 public:
 	labormarket(void);
-	
-	void set(vector<int> group_sizes);
-
 
 	void set_vacancies(map<int, double> vacancies);
-	map<int,double> get_vacancies(int group);
+	map<int,double> get_vacancies();
 
 	void set_resumes(map<int, vector<int>> resumes);
 	map<int, vector<int>> get_resumes();
@@ -29,8 +26,5 @@ private:
 	map<int, double> _vacancies;
 	map<int, vector<int>> _resumes;	
 	map<int, vector<int>> _invites;
-	vector<int> _group_sizes;
-	int _current_group;
-
 };
 
