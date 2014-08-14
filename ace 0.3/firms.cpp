@@ -160,6 +160,22 @@ void firms::produce()
 	}
 }
 
+void firms::produce_raw()
+{
+	for (map<int, firm>::iterator i = _firms.begin(); i != _firms.end(); ++i)
+	{
+		(i->second).produce_raw();
+	}
+}
+
+void firms::produce_consume()
+{
+	for (map<int, firm>::iterator i = _firms.begin(); i != _firms.end(); ++i)
+	{
+		(i->second).produce_consume();
+	}
+}
+
 map<int, offer> firms::set_supply()
 {
 	map<int, offer> supply;

@@ -28,7 +28,7 @@ public:
 	firm(void);
 	firm (double money);
 	// Закупка сырья
-	void buy(offer& good, double& available, double& spent);
+	double buy(offer& good, double& available, double& spent);
 	void buy_raw(map<int, offer> &demand);
 	//-----Labor-market-----//
 	vector<int> checkresumes(vector<int> resumes);         //Check income resumes and select appropriate candidates   
@@ -40,6 +40,8 @@ public:
 	void getsales(int sold);//, int buyers);             //Get money from sales   
 	//-----Production-----//
 	void produce();
+	void produce_raw();
+	void produce_consume();
 	// Запись информации в лог.
 	void write_log(string model_name, int firm_id);
 	//Доступ к частной информации
@@ -71,7 +73,6 @@ private:
 	double _elasticity; 
 	double _productivity;
 	double _raw_need;
-	double _raw_price;
 	//-----Parameters-----//
 	double _price;
 	double _salary;
@@ -81,6 +82,7 @@ private:
 	vector <int> _workers_ids;
 	int _resume_number;
 	double _raw;
+	double _bought;
 //	int _buyers;
 	//-----Calculations-----//
 	double _money;

@@ -31,6 +31,8 @@ public:
 	void hire(map <int, vector<int>> employers);
 	// Производство.
 	void produce();
+	void produce_raw();
+	void produce_consume();
 	// Рынок товаров.
 	map<int,offer> set_supply();
 	void get_sales(map<int, int> sales);

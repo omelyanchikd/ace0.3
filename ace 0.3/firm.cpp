@@ -7,7 +7,6 @@ firm::firm(void)
 	_elasticity = 0; 
 	_productivity = 0;
 	_raw_need = 4;
-	_raw_price = 0;
 	//-----Parameters-----//
 	_price = 0;
 	_salary = 0;
@@ -17,7 +16,7 @@ firm::firm(void)
 	_resume_number = 0;
 	_raw = 0;
 //	_buyers = 0;
-
+	_bought = 0;
 	//-----Calculations-----//
 	_money = 0;
 	_profit = 0;
@@ -47,7 +46,6 @@ firm::firm(double money)
 	_elasticity = -1.5; 
 	_productivity = 5;
 	_raw_need = 4;
-	_raw_price = 0;
 	//-----Parameters-----//
 	_salary = 10;
 	_plan = 0;
@@ -57,6 +55,7 @@ firm::firm(double money)
 	_resume_number = 0;
 	_raw = 0;
 //	_buyers = 0;
+	_bought = 0;
 	//-----Calculations-----//
 	_money = money;
 	_profit = 0;
@@ -94,8 +93,9 @@ firm::firm(double money)
 
 void firm::buy_raw(map<int, offer> &demand)
 { 
-	double available = _raw_need, spent = 0;
-	while ((spent < _raw_need) && (demand.size() > 0))
+	_bought = 0;
+	double available = _raw_need * _workers_ids.size(), spent = 0;
+	while ((spent < _raw_need * _workers_ids.size()) && (demand.size() > 0))
     {
         map<int,offer>::iterator j = demand.begin();
 		int rand = get_random(demand);
@@ -103,31 +103,34 @@ void firm::buy_raw(map<int, offer> &demand)
 		{
 			j++;
 		}
-        buy(j->second, available, spent);
+        _bought += buy(j->second, available, spent);
 		if ((j->second).get_count() == 0)
 		{
 			demand.erase(j);
 		}
     }
-
-	_money -= spent; 
 }
 
-void firm::buy(offer& good, double& available, double& spent)
+double firm::buy(offer& good, double& available, double& spent)
 {
-	if (good.get_count() * good.get_price() >= available)
+	if (good.get_count() >= available)
 	{
-		spent += available/good.get_price() * available;
-		good.set_count(good.get_count() - available/good.get_price());//*/
+		spent += available;
+		good.set_count(good.get_count() - available);
+		return available * good.get_price();
 	/*	spent += floor(available/good.get_price()) * available;
 		good.set_count(good.get_count() - floor(available/good.get_price()));	//*/	
 	}
 	else
 	{
-		spent += good.get_count() * good.get_price();
-		available -= good.get_count() * good.get_price();
+		spent += good.get_count();
+		available -= good.get_count();
+		double bought = good.get_count() * good.get_price();
 		good.set_count(0);
+		return bought;
+		
 	}
+	return 0;
 }
 
 vector<int> firm::checkresumes(vector<int> resumes)
@@ -182,15 +185,33 @@ void firm::getsales(int sold)//, int buyers)
 	prev_sold = _sold;
 	_sold = sold;
 //	_buyers = buyers;
-	_money += _price * _sold;
 	prev_profit = _profit;
-	_profit = _price * _sold - _salary * _workers_ids.size() - _raw_price * _raw;
+	_profit = _price * _sold - _salary * _workers_ids.size() - _bought;
+	_money += _profit;
 }
 
 void firm::produce()
 {
 	_stock = _productivity * _workers_ids.size(); //sqrtf(_workers_ids.size());
-	_money -= _salary * _workers_ids.size();
+//	_money -= _salary * _workers_ids.size();
+}
+
+void firm::produce_consume()
+{
+	if (_raw_need * _workers_ids.size() == _raw)
+	{
+		_stock = _productivity * _workers_ids.size();
+	}
+	else
+	{
+		_stock = _productivity * _raw/_raw_need;
+	}
+
+}
+
+void firm::produce_raw()
+{
+	_stock = _productivity * _workers_ids.size();
 }
 
 int firm::getstock()
@@ -465,7 +486,7 @@ void firm::set_parameters(scenario choice)
 						_desired_workers += floor(desired_alpha * _profit);
 						break;				
 			}
-			_price = (_salary + _raw_price * _productivity * _raw_need)/_productivity * ( 1 / (1 + 1 / _elasticity));
+			_price = (_salary * _workers_ids.size() + _bought) / (_productivity * _raw / _raw_need)* ( 1 / (1 + 1 / _elasticity));
 			break;
 	}
 }
@@ -526,7 +547,7 @@ void firm::learn(scenario choice)
 		case random:
 							_salary = rand()/(double)RAND_MAX * 3 + 4;
 							_desired_workers = rand()/(double)RAND_MAX * 50 + 50;
-							_price = (_salary + _raw_price * _raw_need * _productivity)/_productivity * ( 1 / (1 + 1 / _elasticity));
+							_price = (_salary * _workers_ids.size() + _bought) / (_productivity * _raw / _raw_need)* ( 1 / (1 + 1 / _elasticity));
 							break;
 		case rational_quantity:
 							x.clear();

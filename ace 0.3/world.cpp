@@ -105,11 +105,11 @@ void world::step()
 		_firms_raw.hire(_households.choose_employee(_labormarket.get_invites(), _labormarket.get_vacancies()));
 		_labormarket.clear();
 	}
-	_firms_raw.produce();
+	_firms_raw.produce_raw();
 	_rawmarket.set_supply(_firms_raw.set_supply());
 	_firms_consume.buy_raw(_rawmarket._demand);
 	_firms_raw.get_sales(_rawmarket.get_sales());
-	_firms_consume.produce();
+	_firms_consume.produce_consume();
 	_households.get_income();
 	_goodmarket.set_supply(_firms_consume.set_supply());
 	_households.buy(_goodmarket._demand);
