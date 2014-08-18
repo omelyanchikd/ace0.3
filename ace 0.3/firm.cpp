@@ -109,6 +109,7 @@ void firm::buy_raw(map<int, offer> &demand)
 			demand.erase(j);
 		}
     }
+	_raw = spent;
 }
 
 double firm::buy(offer& good, double& available, double& spent)
@@ -206,7 +207,7 @@ void firm::produce_consume()
 	{
 		_stock = _productivity * _raw/_raw_need;
 	}
-
+	_raw = 0;
 }
 
 void firm::produce_raw()

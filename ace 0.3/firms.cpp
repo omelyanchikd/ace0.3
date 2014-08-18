@@ -17,77 +17,77 @@ firms::firms(int n, double money, string model_name, int start)
 	_rls = rls(fi, matrix(2));
 	ofstream fout;
 	ostringstream fn;
-	for (int i = 1; i < n+1; i++)
+	for (int i = start + 1; i < n + start + 1; i++)
 	{
 		fn<<model_name<<"_salary"<<"_firm_"<<i<<".txt";
-		fout.open(fn.str());
-		fout.clear();
+		fout.open(fn.str(), ios::trunc);
+		fout<<"";
 		fout.close();
 		fn.str("");
 		fn<<model_name<<"_price"<<"_firm_"<<i<<".txt";
-		fout.open(fn.str());
-		fout.clear();
+		fout.open(fn.str(), ios::trunc);
+		fout<<"";
 		fout.close();
 		fn.str("");;
 		fn<<model_name<<"_sold"<<"_firm_"<<i<<".txt";
-		fout.open(fn.str());
-		fout.clear();
+		fout.open(fn.str(), ios::trunc);
+		fout<<"";
 		fout.close();
 		fn.str("");
 		fn<<model_name<<"_workers"<<"_firm_"<<i<<".txt";
-		fout.open(fn.str());
-		fout.clear();
+		fout.open(fn.str(), ios::trunc);
+		fout<<"";		
 		fout.close();
 		fn.str("");
 		fn<<model_name<<"_money"<<"_firm_"<<i<<".txt";
-		fout.open(fn.str());
-		fout.clear();
+		fout.open(fn.str(), ios::trunc);
+		fout<<"";	
 		fout.close();
 		fn.str("");
 		fn<<model_name<<"_profit"<<"_firm_"<<i<<".txt";
-		fout.open(fn.str());
-		fout.clear();
+		fout.open(fn.str(), ios::trunc);
+		fout<<"";		
 		fout.close();
 		fn.str("");
 		fn<<model_name<<"_desired"<<"_firm_"<<i<<".txt";
-		fout.open(fn.str());
-		fout.clear();
+		fout.open(fn.str(), ios::trunc);
+		fout<<"";		
 		fout.close();
 		fn.str("");
 		fn<<model_name<<"_stock"<<"_firm_"<<i<<".txt";
-		fout.open(fn.str());
-		fout.clear();
+		fout.open(fn.str(), ios::trunc);
+		fout<<"";		
 		fout.close();
 		fn.str("");
 	}
 	fn<<model_name<<"_average_price.txt";
-	fout.open(fn.str());
-	fout.clear();
+	fout.open(fn.str(), ios::trunc);
+    fout<<"";
 	fout.close();
 	fn.str("");
 	fn<<model_name<<"_average_salary.txt";
-	fout.open(fn.str());
-	fout.clear();
+	fout.open(fn.str(), ios::trunc);
+	fout<<"";
 	fout.close();
 	fn.str("");
 	fn<<model_name<<"_gdp.txt";
-	fout.open(fn.str());
-	fout.clear();
+	fout.open(fn.str(), ios::trunc);
+	fout<<"";
 	fout.close();
 	fn.str("");
 	fn<<model_name<<"_consumption.txt";
-	fout.open(fn.str());
-	fout.clear();
+	fout.open(fn.str(), ios::trunc);
+	fout<<"";
 	fout.close();
 	fn.str("");
 	fn<<model_name<<"_production.txt";
-	fout.open(fn.str());
-	fout.clear();
+	fout.open(fn.str(), ios::trunc);
+	fout<<"";
 	fout.close();
 	fn.str("");
 	fn<<model_name<<"_firm_number.txt";
-	fout.open(fn.str());
-	fout.clear();
+	fout.open(fn.str(), ios::trunc);
+	fout<<"";
 	fout.close();
 	fn.str("");
 }
@@ -142,10 +142,10 @@ void firms::hire(map<int, vector<int>> employers)
 {
 	vector<int> ids;
 	ids.clear();
-	ids = this->get_firm_ids();
+	ids = get_firm_ids();
 	for (int i = 0; i < ids.size(); i++)
 	{
-		if (employers.find(i) != employers.end())
+		if (employers.find(ids[i]) != employers.end())
 		{
 			_firms[ids[i]].hire(employers[ids[i]]);
 		}
