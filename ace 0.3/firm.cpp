@@ -7,6 +7,7 @@ firm::firm(void)
 	_elasticity = 0; 
 	_productivity = 0;
 	_raw_need = 4;
+	_price = 5;
 	//-----Parameters-----//
 	_price = 0;
 	_salary = 0;
@@ -93,6 +94,7 @@ firm::firm(double money)
 
 void firm::buy_raw(map<int, offer> &demand)
 { 
+	_raw = 0;
 	_bought = 0;
 	double available = _raw_need * _workers_ids.size(), spent = 0;
 	while ((spent < _raw_need * _workers_ids.size()) && (demand.size() > 0))
@@ -139,6 +141,7 @@ vector<int> firm::checkresumes(vector<int> resumes)
    _resume_number = resumes.size();
    vector <int> invite;
    int _workers = _workers_ids.size();
+   _workers_ids.clear(); 
    if (_desired_workers > _workers)
    {
 	   if (resumes.size() == 0)
@@ -151,13 +154,13 @@ vector<int> firm::checkresumes(vector<int> resumes)
        }
        while ((invite.size() < resumes.size()) && (invite.size() < _desired_workers - _workers));
    }
-   _workers_ids.clear(); // Необходима проверка случая, когда домохозяйство решает уволиться из фирмы.
    return invite;
 }
 
 void firm::hire(vector<int> ids)
 {
 	prev_workers = _workers_ids.size();
+//	_workers
 	for (int i = 0; i < ids.size(); i++)
 	{
 		_workers_ids.push_back(ids[i]);
@@ -207,7 +210,7 @@ void firm::produce_consume()
 	{
 		_stock = _productivity * _raw/_raw_need;
 	}
-	_raw = 0;
+//	_raw = 0;
 }
 
 void firm::produce_raw()
@@ -548,7 +551,7 @@ void firm::learn(scenario choice)
 		case random:
 							_salary = rand()/(double)RAND_MAX * 3 + 4;
 							_desired_workers = rand()/(double)RAND_MAX * 50 + 50;
-							_price = (_salary * _workers_ids.size() + _bought) / (_productivity * _raw / _raw_need)* ( 1 / (1 + 1 / _elasticity));
+							if (_stock ) _price = (_salary * _workers_ids.size() + _bought) / (_productivity * _raw / _raw_need)* ( 1 / (1 + 1 / _elasticity));
 							break;
 		case rational_quantity:
 							x.clear();

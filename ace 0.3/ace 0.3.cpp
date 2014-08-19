@@ -9,7 +9,7 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	srand(1);
-	int n = 2, m = 500, i = 5;
+	int n = 2, m = 100, i = 50;
 	string model;
 /*	cout<<"Input initial number of firms: "<<endl;
 	cin>>n;
@@ -19,7 +19,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	cin>>i;//*/
 //	cout<<"Input model name: ";
 //	cin>>model;
-	scenario choice (nonconscious, value, salary_price_desired, profit);
+	scenario choice (random, value, salary_price_desired, profit);
 	world earth(n,m,10,0, choice, "ace");//model);//, "output_lviv_month_price.txt", "output_lviv_month_salary.txt", "output_lviv_month_plan.txt");
 	for (int iteration = 0; iteration < i; iteration++)
 	{
