@@ -131,4 +131,4 @@ private:
 
 };
 
-
+bool is_in(int val, vector<int> x);

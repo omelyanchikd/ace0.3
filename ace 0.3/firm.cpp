@@ -140,8 +140,13 @@ vector<int> firm::checkresumes(vector<int> resumes)
 {
    _resume_number = resumes.size();
    vector <int> invite;
-   int _workers = _workers_ids.size();
+   for (int i = 0; i < resumes.size(); i++)
+   {
+	   if (is_in(resumes[i], _workers_ids))
+		   invite.push_back(resumes[i]);
+   }
    _workers_ids.clear(); 
+   int _workers = invite.size();
    if (_desired_workers > _workers)
    {
 	   if (resumes.size() == 0)
@@ -863,4 +868,14 @@ double firm::set(vector<double> state, vector<vector<double>> rules)
 	}
 	int choice = rand() % rules.size();
 	return (rules[choice][rules[choice].size()-2] + rand()/(double)RAND_MAX * (rules[choice][rules[choice].size()-1] - rules[choice][rules[choice].size()-2]));
+}
+
+bool is_in(int val, vector<int> x)
+{
+	for (int i = 0; i < x.size(); i++)
+	{
+		if (x[i] == val)
+			return true;
+	}
+	return false;
 }
