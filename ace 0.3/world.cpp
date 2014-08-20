@@ -125,6 +125,7 @@ void world::step()
 //	_households.print_info();
 //	_firms.learn(_rules_price, _rules_salary, _rules_plan);
 	_firms_consume.learn(_scenario);
+	_firms_raw.learn(_scenario);
 	_goodmarket.clear();
 	_labormarket.clear();
 	_rawmarket.clear();

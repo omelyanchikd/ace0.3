@@ -556,7 +556,10 @@ void firm::learn(scenario choice)
 		case random:
 							_salary = rand()/(double)RAND_MAX * 3 + 4;
 							_desired_workers = rand()/(double)RAND_MAX * 50 + 50;
-							if (_stock ) _price = (_salary * _workers_ids.size() + _bought) / (_productivity * _raw / _raw_need)* ( 1 / (1 + 1 / _elasticity));
+							if (_raw) 
+								_price = (_salary * _workers_ids.size() + _bought) / (_productivity * _raw / _raw_need)* ( 1 / (1 + 1 / _elasticity));
+							else
+								_price = _salary / (_productivity * ( 1 / (1 + 1 / _elasticity)));
 							break;
 		case rational_quantity:
 							x.clear();
