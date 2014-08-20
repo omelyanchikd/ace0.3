@@ -559,7 +559,7 @@ void firm::learn(scenario choice)
 							if (_raw) 
 								_price = (_salary * _workers_ids.size() + _bought) / (_productivity * _raw / _raw_need)* ( 1 / (1 + 1 / _elasticity));
 							else
-								_price = _salary / (_productivity * ( 1 / (1 + 1 / _elasticity)));
+								_price = _salary / _productivity * ( 1 / (1 + 1 / _elasticity));
 							break;
 		case rational_quantity:
 							x.clear();
