@@ -22,7 +22,7 @@ world::world(int firmnumber, int householdnumber, double firmmoney, double house
 world::world(int firmnumber, int householdnumber, double firmmoney, double householdmoney, scenario choice, string model_name, string rules_price, string rules_salary, string rules_plan)
 {
 	_firms_consume = (firms(firmnumber, firmmoney, model_name, 0));
-	_firms_raw = (firms(2, 0, model_name, firmnumber));
+	_firms_raw = (firms(2, firmmoney, model_name, firmnumber));
 	_households = (households(householdnumber, householdmoney, model_name));
 	_rawmarket.clear();
 	_goodmarket.clear();
@@ -88,7 +88,7 @@ world::world(int firmnumber, int householdnumber, double firmmoney, double house
 
 void world::step()
 {
-	_households.die();
+//	_households.die();
 	_households.birth();
 	_households.quit(_firms_consume.fire());
 	_households.quit(_firms_raw.fire());

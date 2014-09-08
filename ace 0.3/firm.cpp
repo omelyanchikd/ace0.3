@@ -551,7 +551,8 @@ void firm::learn(scenario choice)
 								_sales.push_back(_sold);							
 								period++;
 							}
-							_price = _salary/_productivity * ( 1 / (1 + 1 / _elasticity));
+							if (_workers_ids.size())
+								_price = (_salary * _workers_ids.size() + _bought)/(_productivity * _workers_ids.size())* ( 1 / (1 + 1 / _elasticity));
 							break;
 		case random:
 							_salary = rand()/(double)RAND_MAX * 3 + 4;
